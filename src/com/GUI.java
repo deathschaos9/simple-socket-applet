@@ -10,7 +10,8 @@ import java.io.PrintStream;
 
 import javax.swing.*;
 
-import com.io.ConsoleOutput;
+import com.io.OutStream;
+import com.io.OutStreamErr;
 
 /**
  * @author John
@@ -39,14 +40,16 @@ public class GUI implements ActionListener {
 
 		// Console area
 		JTextArea displayArea = new JTextArea();
-		pane.setPreferredSize(new Dimension(250, 300));
+		pane.setPreferredSize(new Dimension(375, 200));
 		pane.add(displayArea, BorderLayout.CENTER);
 		displayArea.setEditable(false);
 		displayArea.setLineWrap(true);
 		PrintStream printStream = new PrintStream(
-				new ConsoleOutput(displayArea));
+				new OutStream(displayArea));
 		System.setOut(printStream);
-		System.setErr(printStream);
+		PrintStream printStreamErr = new PrintStream(
+				new OutStreamErr(displayArea));
+		System.setErr(printStreamErr);
 
 		// Kill button
 		JButton stopButton = new JButton("Terminate Server");
@@ -58,7 +61,7 @@ public class GUI implements ActionListener {
 	 * Create the GUI and show it.
 	 */
 	private GUI() {
-		JFrame frame = new JFrame("Simple Server");
+		JFrame frame = new JFrame("Simple Server by dc9");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addComponentsToPane(frame.getContentPane());
 		frame.pack();

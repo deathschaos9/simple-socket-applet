@@ -35,7 +35,8 @@ public class Server extends Thread {
 				String hostName = clientSocket.getLocalAddress().getHostAddress();
 				System.out.println("Incoming connection from: " + hostName);
 				if (clientSocket.isConnected()) {
-					System.out.println("Connection success, terminating client.");
+					System.out.println("Connection success, notifying and terminating client.");
+					clientSocket.getOutputStream().write(1); // 0 = nogo 1 = yay
 					clientSocket.close();
 				}
 			}
